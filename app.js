@@ -10,8 +10,7 @@ var httpServer = http.createServer(function(request, response) {
   if(pathname == "/") pathname = "index.html";
   var filename = path.join(process.cwd(), 'public', pathname);
 
-  path.exists(filename, function(exists) {
-    if(!exists) {
+    if(!fs.existsSync(filename)) {
       response.writeHead(404, { "Content-Type": "text/plain" });
       response.write("404 Not Found");
       response.end();
@@ -29,7 +28,7 @@ var httpServer = http.createServer(function(request, response) {
     }).addListener("close", function() {
       response.end();
     });
-  });
+  
 });
 
 var connectedUsers = {};
